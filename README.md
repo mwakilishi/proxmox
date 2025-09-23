@@ -1,2 +1,2 @@
 # proxmox
-Proxmox Configs
+Configurations for local proxmox cluster
