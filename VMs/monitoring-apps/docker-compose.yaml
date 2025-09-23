@@ -1,0 +1,31 @@
+#located at /home/jthairu/docker
+services:
+  influxdb:
+    container_name: influxdb
+    restart: always
+    image: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      -  /home/jthairu/docker/influxdb/data:/var/lib/influxdb2
+      - /home/jthairu/docker/influxdb/config:/etc/influxdb2
+    networks:
+      - monitor_network
+
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - /home/jthairu/docker/grafana:/var/lib/grafana
+    user: "1000:1000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD= #
+    networks:
+      - monitor_network
+networks:
+  monitor_network:
+    driver: bridge

@@ -1,0 +1,225 @@
+http:
+
+  middlewares:
+    https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  serversTransports:
+    unifi-transport:
+      insecureSkipVerify: true
+
+  routers:
+
+    http-catchall:
+      rule: "HostRegexp(`{host:.+}`)"
+      entryPoints:
+        - web
+      middlewares:
+        - https-redirect
+      service: noop@internal
+
+    traefik-dashboard:
+      rule: Host(`traefik.mwakilishi.com`)
+      entryPoints:
+        - websecure
+      service: api@internal
+      tls:
+        certResolver: route53
+
+    pihole:
+      rule: Host(`pihole.mwakilishi.com`)
+      entryPoints:
+        - websecure
+      service: pihole-service
+      tls:
+        certResolver: route53
+
+    hass:
+      rule: "Host(`hass.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: hass-service
+      tls:
+        certResolver: route53
+
+    zigbee:
+      rule: "Host(`zigbee.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: zigbee-service
+      tls:
+        certResolver: route53
+
+    unifi:
+      rule: "Host(`unifi.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: unifi-service
+      tls:
+        certResolver: route53
+
+    radarr:
+      rule: "Host(`radarr.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: radarr-service
+      tls:
+        certResolver: route53
+
+    sonarr:
+      rule: "Host(`sonarr.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: sonarr-service
+      tls:
+        certResolver: route53
+
+    lidarr:
+      rule: "Host(`lidarr.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: lidarr-service
+      tls:
+        certResolver: route53
+
+    jackett:
+      rule: "Host(`jackett.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: jackett-service
+      tls:
+        certResolver: route53
+
+    nzbget:
+      rule: "Host(`nzbget.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: nzbget-service
+      tls:
+        certResolver: route53
+
+    plex:
+      rule: "Host(`plex.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: plex-service
+      tls:
+        certResolver: route53
+
+    qbittorrent:
+      rule: "Host(`qbit.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: qbittorrent-service
+      tls:
+        certResolver: route53
+
+    jellyfin:
+      rule: "Host(`jellyfin.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: jellyfin-service
+      tls:
+        certResolver: route53
+
+    youtubedl:
+      rule: "Host(`youtubedl.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: youtubedl-service
+      tls:
+        certResolver: route53
+
+    grafana:
+      rule: "Host(`grafana.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: grafana-service
+      tls:
+        certResolver: route53
+
+    influxdb:
+      rule: "Host(`influxdb.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: influxdb-service
+      tls:
+        certResolver: route53
+
+  services:
+    pihole-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.10/admin"  # Pi-hole VM IP + web port
+        passHostHeader: true
+
+    hass-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.80:8123"  # Home Assistant VM IP + port
+        passHostHeader: true
+
+    zigbee-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.82:8080"
+
+    unifi-service:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.2.1:443"
+        passHostHeader: true
+        serversTransport: unifi-transport
+
+    plex-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.60:32400"
+        passHostHeader: true
+    radarr-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:7878"
+        passHostHeader: false
+    sonarr-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:8989"
+        passHostHeader: false
+    lidarr-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:8686"
+    jackett-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:9117"
+    nzbget-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:6789"
+    qbittorrent-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:8080"
+    jellyfin-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.65:8096"
+    youtubedl-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.30:8084"
+    grafana-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.90:3000"
+
+    influxdb-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.90:8086"
+
+

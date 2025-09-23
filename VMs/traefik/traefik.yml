@@ -1,0 +1,31 @@
+log:
+  level: INFO
+  filePath: /var/log/traefik/traefik.log
+
+api:
+  dashboard: true
+  insecure: true
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+  file:
+    filename: /etc/traefik/dynamic.yml
+    watch: true
+
+certificatesResolvers:
+  route53:
+    acme:
+      email: mwakilishi@gmail.com
+      storage: /etc/traefik/acme.json
+      dnsChallenge:
+        provider: route53
+        delayBeforeCheck: 0 
+

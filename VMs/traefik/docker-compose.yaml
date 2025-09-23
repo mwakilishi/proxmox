@@ -1,0 +1,31 @@
+#located at /opt/traefik
+
+networks:
+  traefik_proxy:
+    external: true
+
+services:
+  traefik:
+    image: traefik:v3.5.2
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - --configFile=/etc/traefik/traefik.yml
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    env_file:
+      - /opt/traefik/.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /opt/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /opt/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - /opt/traefik/acme.json:/etc/traefik/acme.json
+      - /opt/traefik/log/:/var/log/traefik/
+    environment:
+      - #AWS Access Key
+      - #AWS Secret Key
+      - #AWS Region
+    networks:
+      - traefik_proxy

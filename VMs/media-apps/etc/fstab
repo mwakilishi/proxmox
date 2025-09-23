@@ -1,0 +1,8 @@
+
+# Synology NAS mounts using credentials file
+//10.10.2.85/downloads /volume1/downloads cifs credentials=/root/.nas-credentials,uid=1000,gid=1000,rw,vers=3.0 0 0
+//10.10.2.85/music     /volume1/music     cifs credentials=/root/.nas-credentials,uid=1000,gid=1000,rw,vers=3.0 0 0
+//10.10.2.85/video     /volume1/video     cifs credentials=/root/.nas-credentials,uid=1000,gid=1000,rw,vers=3.0 0 0
+
+
+

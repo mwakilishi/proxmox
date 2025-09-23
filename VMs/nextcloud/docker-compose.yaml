@@ -1,0 +1,53 @@
+services:
+  nextcloud:
+    image: nextcloud
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+    volumes:
+      - /home/jthairu/docker/nextcloud:/var/www/html
+      - /volume1:/var/www/html/data
+    environment:
+      NEXTCLOUD_TRUSTED_DOMAINS: "nextcloud.mwakilishi.com 10.10.2.40 localhost 127.0.0.1"
+    networks:
+      - nextcloud_network
+
+  db:
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: #
+      MYSQL_DATABASE: #
+      MYSQL_USER: #
+      MYSQL_PASSWORD: #
+    volumes:
+      - /home/jthairu/docker/db:/var/lib/mysql
+    networks:
+      - nextcloud_network
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    networks:
+      - nextcloud_network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.23
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - /home/jthairu/docker/esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    networks:
+      - nextcloud_network
+
+networks:
+  nextcloud_network:
+    driver: bridge

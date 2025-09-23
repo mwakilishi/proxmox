@@ -1,0 +1,167 @@
+#located at /home/jthairu/docker
+
+networks:
+  docker_media_network:
+    driver: bridge
+  traefik_proxy:
+    external: true
+
+services:
+  jackett:
+    image: linuxserver/jackett:latest
+    hostname: jackett
+    environment:
+      - HOME=/root
+      - TZ=America/New_York
+    ports:
+      - 9117:9117
+    volumes:
+      - /home/jthairu/docker/jackett/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  lidarr:
+    image: linuxserver/lidarr:latest
+    hostname: lidarr
+    environment:
+      - HOME=/root
+      - TZ=America/New_York
+      - PUID=1000   # change to your user ID
+      - PGID=1000   # change to your group ID
+    ports:
+      - 8686:8686
+    volumes:
+      - /home/jthairu/docker/lidarr/config:/config
+      - /volume1/downloads:/downloads
+      - /volume1/music:/music
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    hostname: prowlarr
+    environment:
+      - HOME=/root
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - 9696:9696
+    volumes:
+      - /home/jthairu/docker/prowlarr/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  radarr:
+    image: linuxserver/radarr:latest
+    hostname: radarr
+    environment:
+      - HOME=/root
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - 7878:7878
+    volumes:
+      - /home/jthairu/docker/radarr/config:/config
+      - /volume1/downloads/Movies:/downloads/Movies
+      - /volume1/video/Movies:/video/Movies
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    hostname: sonarr
+    environment:
+      - HOME=/root
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - 8989:8989
+    volumes:
+      - /home/jthairu/docker/sonarr/config:/config
+      - /volume1/downloads/Series:/downloads/Series
+      - /volume1/video/series:/video/Series
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  youtubedl:
+    image: tzahi12345/youtubedl-material
+    hostname: youtubedl
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - USER=youtube
+      - NO_UPDATE_NOTIFIER=true
+      - PM2_HOME=/app/pm2
+      - ALLOW_CONFIG_MUTATIONS=true
+      - TZ=America/New_York
+    volumes:
+      - /home/jthairu/docker/youtubedl/appdata:/app/appdata
+      - /home/jthairu/docker/youtubedl/subscriptions:/app/subscriptions
+      - /home/jthairu/docker/youtubedl/users:/app/users
+      - /volume1/music:/app/audio
+      - /volume1/video/Music:/app/video
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8084:17442
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  nzbget:
+    image: "linuxserver/nzbget:latest"
+    hostname: "nzbget"
+    environment:
+      - "PUID=0"
+      - "PGID=0"
+    ports:
+      - "6789:6789/tcp"
+    tty: true
+    volumes:
+      - /home/jthairu/docker/nzbget/config:/config
+      - /volume1/downloads:/downloads
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
+
+  qbittorrent:
+
+    image: lscr.io/linuxserver/qbittorrent:latest
+    hostname: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /home/jthairu/docker/qbittorrent:/config
+      - /volume1/downloads/torrents:/downloads #optional
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    restart: unless-stopped
+    networks:
+      - docker_media_network
+      - traefik_proxy
