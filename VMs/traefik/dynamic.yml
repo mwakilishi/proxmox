@@ -9,6 +9,8 @@ http:
   serversTransports:
     unifi-transport:
       insecureSkipVerify: true
+    proxmox-transport:
+      insecureSkipVerify: true
 
   routers:
 
@@ -147,6 +149,34 @@ http:
       service: influxdb-service
       tls:
         certResolver: route53
+    nextcloud:
+      rule: "Host(`nextcloud.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: nextcloud-service
+      tls:
+        certResolver: route53
+    proxmox1:
+      rule: "Host(`proxmox1.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: proxmox1-service
+      tls:
+        certResolver: route53
+    proxmox2:
+      rule: "Host(`proxmox2.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: proxmox2-service
+      tls:
+        certResolver: route53
+    proxmox3:
+      rule: "Host(`proxmox3.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: proxmox3-service
+      tls:
+        certResolver: route53
 
   services:
     pihole-service:
@@ -216,10 +246,29 @@ http:
       loadBalancer:
         servers:
           - url: "http://10.10.2.90:3000"
-
     influxdb-service:
       loadBalancer:
         servers:
           - url: "http://10.10.2.90:8086"
-
-
+    nextcloud-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.40:8080"
+    proxmox1-service:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.2.101:8006"
+        passHostHeader: true
+        serversTransport: proxmox-transport
+    proxmox2-service:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.2.102:8006"
+        passHostHeader: true
+        serversTransport: proxmox-transport
+    proxmox3-service:
+      loadBalancer:
+        servers:
+          - url: "https://10.10.2.104:8006"
+        passHostHeader: true
+        serversTransport: proxmox-transport
