@@ -185,34 +185,35 @@ services:
       - docker_media_network
       - traefik_proxy
 
-  qbittorrent:
+  #
+  #qbittorrent:
 
-    image: lscr.io/linuxserver/qbittorrent:latest
-    logging: 
-      driver: loki
-      options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
-        loki-retries: 2
-        loki-max-backoff: 800ms
-        loki-timeout: 1s
-        keep-file: "true"
-        mode: "non-blocking"
-    hostname: qbittorrent
-    container_name: qbittorrent
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - WEBUI_PORT=8080
-      - TORRENTING_PORT=6881
-    volumes:
-      - /home/jthairu/docker/qbittorrent:/config
-      - /volume1/downloads/torrents:/downloads #optional
-    ports:
-      - "8080:8080"
-      - "6881:6881"
-      - "6881:6881/udp"
-    restart: unless-stopped
-    networks:
-      - docker_media_network
-      - traefik_proxy
+    #image: lscr.io/linuxserver/qbittorrent:latest
+    #logging: 
+      #driver: loki
+      #options:
+        #loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        #loki-retries: 2
+        #loki-max-backoff: 800ms
+        #loki-timeout: 1s
+        #keep-file: "true"
+        #mode: "non-blocking"
+    #hostname: qbittorrent
+    #container_name: qbittorrent
+    #environment:
+      #- PUID=1000
+      #- PGID=1000
+      #- TZ=Etc/UTC
+      #- WEBUI_PORT=8080
+      #- TORRENTING_PORT=6881
+    #volumes:
+      #- /home/jthairu/docker/qbittorrent:/config
+      #- /volume1/downloads/torrents:/downloads #optional
+    #ports:
+      #- "8080:8080"
+      #- "6881:6881"
+      #- "6881:6881/udp"
+    #restart: unless-stopped
+    #networks:
+      #- docker_media_network
+      #- traefik_proxy
