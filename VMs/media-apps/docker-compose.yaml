@@ -1,4 +1,3 @@
-#located at /home/jthairu/docker
 
 networks:
   docker_media_network:
@@ -9,7 +8,17 @@ networks:
 services:
   jackett:
     image: linuxserver/jackett:latest
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: jackett
+    container_name: jackett
     environment:
       - HOME=/root
       - TZ=America/New_York
@@ -25,7 +34,17 @@ services:
 
   lidarr:
     image: linuxserver/lidarr:latest
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: lidarr
+    container_name: lidarr
     environment:
       - HOME=/root
       - TZ=America/New_York
@@ -43,27 +62,19 @@ services:
       - docker_media_network
       - traefik_proxy
 
-  prowlarr:
-    image: linuxserver/prowlarr:latest
-    hostname: prowlarr
-    environment:
-      - HOME=/root
-      - TZ=America/New_York
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - 9696:9696
-    volumes:
-      - /home/jthairu/docker/prowlarr/config:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    networks:
-      - docker_media_network
-      - traefik_proxy
-
   radarr:
     image: linuxserver/radarr:latest
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: radarr
+    container_name: radarr
     environment:
       - HOME=/root
       - TZ=America/New_York
@@ -83,7 +94,17 @@ services:
 
   sonarr:
     image: linuxserver/sonarr:latest
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: sonarr
+    container_name: sonarr
     environment:
       - HOME=/root
       - TZ=America/New_York
@@ -103,7 +124,17 @@ services:
 
   youtubedl:
     image: tzahi12345/youtubedl-material
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: youtubedl
+    container_name: youtubedl
     environment:
       - PUID=1000
       - PGID=1000
@@ -128,7 +159,17 @@ services:
 
   nzbget:
     image: "linuxserver/nzbget:latest"
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: "nzbget"
+    container_name: nzbget
     environment:
       - "PUID=0"
       - "PGID=0"
@@ -147,7 +188,17 @@ services:
   qbittorrent:
 
     image: lscr.io/linuxserver/qbittorrent:latest
+    logging: 
+      driver: loki
+      options:
+        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-retries: 2
+        loki-max-backoff: 800ms
+        loki-timeout: 1s
+        keep-file: "true"
+        mode: "non-blocking"
     hostname: qbittorrent
+    container_name: qbittorrent
     environment:
       - PUID=1000
       - PGID=1000

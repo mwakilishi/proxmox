@@ -149,6 +149,14 @@ http:
       service: influxdb-service
       tls:
         certResolver: route53
+    loki:
+      rule: "Host(`loki.mwakilishi.com`)"
+      entryPoints:
+        - websecure
+      service: loki-service
+      tls:
+        certResolver: route53
+
     nextcloud:
       rule: "Host(`nextcloud.mwakilishi.com`)"
       entryPoints:
@@ -250,6 +258,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://10.10.2.90:8086"
+    loki-service:
+      loadBalancer:
+        servers:
+          - url: "http://10.10.2.90:3100"
     nextcloud-service:
       loadBalancer:
         servers:

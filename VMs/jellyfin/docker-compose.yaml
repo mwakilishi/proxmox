@@ -1,7 +1,7 @@
 services:
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    logging: 
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    logging:
       driver: loki
       options:
         loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
@@ -10,16 +10,18 @@ services:
         loki-timeout: 1s
         keep-file: "true"
         mode: "non-blocking"
-    container_name: plex
+    container_name: jellyfin
     network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=America/New_York
-      - VERSION=docker
-      - PLEX_CLAIM= #optional
     volumes:
-      - /home/jthairu/docker/plex/config:/config
-      - /volume1/series:/tv
-      - /volume1/movies:/movies
+      - /opt/jellyfin/config:/config
+      - /opt/jellyfin/cache:/cache
+      - /volume1/downloads:/downloads
+      - /volume1/music:/music
+      - /volume1/video:/video
+    devices:
+      - /dev/dri:/dev/dri  # GPU passthrough
     restart: unless-stopped

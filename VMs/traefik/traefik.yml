@@ -28,4 +28,3 @@ certificatesResolvers:
       dnsChallenge:
         provider: route53
         delayBeforeCheck: 0 
-
