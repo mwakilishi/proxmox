@@ -164,25 +164,25 @@ http:
       service: nextcloud-service
       tls:
         certResolver: route53
-    proxmox1:
-      rule: "Host(`proxmox1.mwakilishi.com`)"
+    ilab1:
+      rule: "Host(`ilab1.mwakilishi.com`)"
       entryPoints:
         - websecure
-      service: proxmox1-service
+      service: ilab1-service
       tls:
         certResolver: route53
-    proxmox2:
-      rule: "Host(`proxmox2.mwakilishi.com`)"
+    ilab2:
+      rule: "Host(`ilab2.mwakilishi.com`)"
       entryPoints:
         - websecure
-      service: proxmox2-service
+      service: ilab2-service
       tls:
         certResolver: route53
-    proxmox3:
-      rule: "Host(`proxmox3.mwakilishi.com`)"
+    ilab3:
+      rule: "Host(`ilab3.mwakilishi.com`)"
       entryPoints:
         - websecure
-      service: proxmox3-service
+      service: ilab3-service
       tls:
         certResolver: route53
 
@@ -190,97 +190,97 @@ http:
     pihole-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.10/admin"  # Pi-hole VM IP + web port
+          - url: "http://10.10.10.10/admin"  # Pi-hole VM IP + web port
         passHostHeader: true
 
     hass-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.80:8123"  # Home Assistant VM IP + port
+          - url: "http://10.10.10.80:8123"  # Home Assistant VM IP + port
         passHostHeader: true
 
     zigbee-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.82:8080"
+          - url: "http://10.10.10.75:8080"
 
     unifi-service:
       loadBalancer:
         servers:
-          - url: "https://10.10.2.1:443"
+          - url: "https://10.10.10.1:443"
         passHostHeader: true
         serversTransport: unifi-transport
 
     plex-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.60:32400"
+          - url: "http://10.10.10.60:32400"
         passHostHeader: true
     radarr-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:7878"
+          - url: "http://10.10.10.30:7878"
         passHostHeader: false
     sonarr-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:8989"
+          - url: "http://10.10.10.30:8989"
         passHostHeader: false
     lidarr-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:8686"
+          - url: "http://10.10.10.30:8686"
     jackett-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:9117"
+          - url: "http://10.10.10.30:9117"
     nzbget-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:6789"
+          - url: "http://10.10.10.30:6789"
     qbittorrent-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:8080"
+          - url: "http://10.10.10.30:8080"
     jellyfin-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.65:8096"
+          - url: "http://10.10.10.65:8096"
     youtubedl-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.30:8084"
+          - url: "http://10.10.10.30:8084"
     grafana-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.90:3000"
+          - url: "http://10.10.10.90:3000"
     influxdb-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.90:8086"
+          - url: "http://10.10.10.90:8086"
     loki-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.90:3100"
+          - url: "http://10.10.10.90:3100"
     nextcloud-service:
       loadBalancer:
         servers:
-          - url: "http://10.10.2.40:8080"
-    proxmox1-service:
+          - url: "http://10.10.10.40:8080"
+    ilab1-service:
       loadBalancer:
         servers:
-          - url: "https://10.10.2.101:8006"
+          - url: "https://10.10.10.101:8006"
         passHostHeader: true
         serversTransport: proxmox-transport
-    proxmox2-service:
+    ilab2-service:
       loadBalancer:
         servers:
-          - url: "https://10.10.2.102:8006"
+          - url: "https://10.10.10.102:8006"
         passHostHeader: true
         serversTransport: proxmox-transport
-    proxmox3-service:
+    ilab3-service:
       loadBalancer:
         servers:
-          - url: "https://10.10.2.104:8006"
+          - url: "https://10.10.10.103:8006"
         passHostHeader: true
         serversTransport: proxmox-transport
