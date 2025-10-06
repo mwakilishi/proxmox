@@ -5,8 +5,8 @@ services:
     hostname: "postgres"
     container_name: postgres
     environment:
-      POSTGRES_USER: jthairu
-      POSTGRES_PASSWORD: "Mucii1311254*#"
+      POSTGRES_USER: ??
+      POSTGRES_PASSWORD: ??
       POSTGRES_DB: iflexdb
     ports:
       - "5432:5432"
@@ -24,8 +24,8 @@ services:
     container_name: postgres-exporter
     environment:
       DATA_SOURCE_URI: "postgres:5432/iflexdb?sslmode=disable"
-      DATA_SOURCE_USER: "jthairu"
-      DATA_SOURCE_PASS: "Mucii1311254*#"
+      DATA_SOURCE_USER: ??
+      DATA_SOURCE_PASS: ??
     networks:
       - db_stack_network
 
