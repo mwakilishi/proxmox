@@ -11,7 +11,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
@@ -37,7 +37,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
@@ -67,7 +67,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
@@ -97,7 +97,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
@@ -127,7 +127,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s
@@ -162,7 +162,7 @@ services:
     logging: 
       driver: loki
       options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
+        loki-url: "http://10.10.10.90:3100/loki/api/v1/push"
         loki-retries: 2
         loki-max-backoff: 800ms
         loki-timeout: 1s

@@ -11,8 +11,17 @@
 /dev/disk/by-uuid/b95ff1f7-092e-46ff-825b-69c2b6eea9a7 /boot ext4 defaults 0 1
 # /boot/efi was on /dev/sda1 during curtin installation
 /dev/disk/by-uuid/2C37-8984 /boot/efi vfat defaults 0 1
-/swap.img	none	swap	sw	0	0
+/swap.img       none    swap    sw      0       0
 
-//10.10.2.85/downloads /volume1/downloads cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,iocharset=utf8,vers=3.0 0 0
-//10.10.2.85/music    /volume1/music    cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,iocharset=utf8,vers=3.0 0 0
-//10.10.2.85/video    /volume1/video    cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,iocharset=utf8,vers=3.0 0 0
+#//10.10.10.95/downloads /volume1/downloads cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,vers=3.0 0 0
+#//10.10.10.95/music    /volume1/music    cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,vers=3.0 0 0
+#//10.10.10.95/video    /volume1/video    cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,iocharset=utf8,vers=3.>
+
+#//10.10.10.95/downloads /volume1/downloads cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,vers=3.0 0 0
+#//10.10.10.95/music /volume1/music cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,vers=3.0 0 0
+#//10.10.10.95/video /volume1/video cifs credentials=/root/.nas-credentials,uid=plex,gid=plex,vers=3.0 0 0
+
+//10.10.10.95/downloads /volume1/downloads cifs credentials=/root/.nas-credentials,uid=1027,gid=100,rw,vers=3.0 0 0
+//10.10.10.95/music     /volume1/music     cifs credentials=/root/.nas-credentials,uid=1027,gid=100,rw,vers=3.0 0 0
+//10.10.10.95/video     /volume1/video     cifs credentials=/root/.nas-credentials,uid=1027,gid=100,rw,vers=3.0 0 0
+

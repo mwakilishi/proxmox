@@ -5,15 +5,7 @@ networks:
 services:
   traefik:
     image: traefik:v3.5.2
-    logging: 
-      driver: loki
-      options:
-        loki-url: "http://10.10.2.90:3100/loki/api/v1/push"
-        loki-retries: 2
-        loki-max-backoff: 800ms
-        loki-timeout: 1s
-        keep-file: "true"
-        mode: "non-blocking"
+    # logging section is commented out to allow traefik.yml to handle it
     container_name: traefik
     restart: unless-stopped
     command:
@@ -22,17 +14,14 @@ services:
       - "80:80"
       - "443:443"
       - "8080:8080"
-    env_file:
-      - /opt/traefik/.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /opt/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-      - /opt/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
-      - /opt/traefik/acme.json:/etc/traefik/acme.json
-      - /opt/traefik/log/:/var/log/traefik/
+      - /home/jthairu/docker/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /home/jthairu/docker/traefik/dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - /home/jthairu/docker/traefik/acme.json:/etc/traefik/acme.json:rw
     environment:
-      - AWS_ACCESS_KEY_ID=#
-      - AWS_SECRET_ACCESS_KEY=
-      - AWS_REGION=#
+      - AWS_ACCESS_KEY_ID=??
+      - AWS_SECRET_ACCESS_KEY=??
+      - AWS_REGION=??
     networks:
       - traefik_proxy
